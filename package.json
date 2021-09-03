@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/ToddPeltzer/Zatta-Backend/issues"
   },
-  "homepage": "https://github.com/ToddPeltzer/Zatta-Backend#readme"
+  "homepage": "https://github.com/ToddPeltzer/Zatta-Backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.13.8"
+  }
 }
