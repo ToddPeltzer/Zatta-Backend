@@ -12,7 +12,8 @@ const notesController = require('./controllers/notes.js')
 app.use('/api/users', usersController)
 app.use('/api/notes', notesController)
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 80
 app.listen(port, () => {
     console.log("Connected Port 4000")
 })
+
