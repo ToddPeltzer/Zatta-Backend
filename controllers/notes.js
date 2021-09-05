@@ -19,8 +19,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.post('/:id', (req, res , next) => {
-    console.log({...req.body, author: req.params.id})
-    Note.create(req.body)
+    Note.create({...req.body, author: req.params.id})
     .then((note) => res.json(note))
     .catch(next)
 })

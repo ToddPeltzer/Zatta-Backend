@@ -19,7 +19,7 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res , next) => {
     User.create(req.body)
-    .then((user) => re.json(user))
+    .then((user) => res.json(user))
     .catch(next)
 })
 
