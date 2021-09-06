@@ -48,8 +48,8 @@ app.use('/api/notes', notesController)
 app.use('/api/todos', todosController)
 
 
-const port = 4000
+const port = process.env.PORT || 4000
 app.listen(port, () => {
-    console.log("Connected Port 80")
+    console.log("Connected Port 4000")
 })
 
