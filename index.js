@@ -25,9 +25,11 @@ app.use(session({
 
 const usersController = require('./controllers/users.js')
 const notesController = require('./controllers/notes.js')
+const todosController = require('./controllers/todos.js')
 
 app.use('/api/users', usersController)
 app.use('/api/notes', notesController)
+app.use('/api/todos', todosController)
 
 app.get('/', function(req, res, next) {
   // if logged in run session,

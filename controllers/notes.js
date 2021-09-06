@@ -12,12 +12,6 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
-    Note.findById(req.params.id)
-    .then((note) => res.json(note))
-    .catch(next)
-})
-
 router.post('/:id', (req, res , next) => {
     Note.create({...req.body, author: req.params.id})
     .then((note) => res.json(note))
@@ -35,4 +29,19 @@ router.delete('/:id', (req, res, next) => {
     .then((note) => res.json(note))
     .catch(next)
 })
+
+router.get('/note/:id', (req, res, next) => {
+    Note.findById(req.params.id)
+    .populate('author')
+    .then((note) => res.json(note))
+    .catch(next)
+})
+
+router.get('/author/:id', (req, res, next) => {
+    Note.find({author: req.params.id})
+    .populate('author')
+    .then((note) => res.json(note))
+    .catch(next)
+})
+
 module.exports = router
