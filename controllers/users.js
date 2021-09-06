@@ -1,7 +1,7 @@
 // routes for slug
-
 const express = require('express')
 const router = express.Router()
+const bcrypt = require('bcrypt')
 
 const User = require('../models/User')
 
@@ -11,14 +11,30 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
-    User.findById(req.params.id)
+router.post('/', (req, res , next) => {
+    User.create(req.body)
     .then((user) => res.json(user))
     .catch(next)
 })
 
-router.post('/', (req, res , next) => {
-    User.create(req.body)
+router.post('/login', (req, res, next) => {
+    User.find({})
+    .then(users => {
+        User.find({username: req.body.username})
+        .then(user => {
+            bcrypt.compare(req.body.password, user[0].password, (err, isMatch) => {
+                if (err) return console.log(err)
+                isMatch
+                ? res.send(true)
+                : res.send(false)
+            })
+        })
+    })
+    .catch(console.error)
+})
+
+router.get('/:id', (req, res, next) => {
+    User.findById(req.params.id)
     .then((user) => res.json(user))
     .catch(next)
 })
@@ -34,4 +50,5 @@ router.delete('/:id', (req, res, next) => {
     .then((user) => res.json(user))
     .catch(next)
 })
+
 module.exports = router
