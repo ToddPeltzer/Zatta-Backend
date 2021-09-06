@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 // mongoURI changes if the app is in production
 // const mongoURI = process.env.MONGODB_URI
-const mongoURI = 'mongodb://localhost/Zatta'
+const mongoURI = process.env.NODE_ENV === 'production' ? process.env.DB_URL : 'mongodb://localhost/Zatta'
 
 mongoose
     .connect(mongoURI, {
