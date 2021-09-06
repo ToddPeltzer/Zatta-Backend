@@ -50,6 +50,6 @@ app.use('/api/todos', todosController)
 
 const port = 4000
 app.listen(port, () => {
-    console.log("Connected Port 4000")
+    console.log("Connected Port 80")
 })
 
