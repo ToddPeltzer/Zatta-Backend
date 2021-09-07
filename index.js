@@ -1,12 +1,31 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const connection = require('./db/connection.js')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
 const app = express()
 
 app.use(cors())
 app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}))
+
+const sessionStore = MongoStore.create({
+    mongoUrl: 'mongodb://localhost:27017/sessions',
+    collectionName: 'sessions'
+})
+
+// session --------
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    maxAge: 24 * 60 * 60 * 1000  //  24 hours
+}))
+
+// session ----------
 
 
 const usersController = require('./controllers/users.js')
@@ -32,6 +51,26 @@ app.delete('/api/users/session/:id', (req, res, next) => {
 app.use('/api/users', usersController)
 app.use('/api/notes', notesController)
 app.use('/api/todos', todosController)
+
+// session ---------
+app.get('/', function(req, res, next) {
+    // if logged in run session,
+  req.session.cookie.maxAge = 1000 * 5
+      if (req.session.views) {
+        req.session.views++
+        res.setHeader('Content-Type', 'text/html')
+        res.write('<p>views: ' + req.session.views + '</p>')
+        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        res.end()
+      } else if(req.session.views === 10) {
+        req.session.destroy()
+      } else {
+        req.session.views = 1
+        res.end('welcome to the session demo. refresh!')
+      }
+    })
+
+// session end ---------
 
 
 const port = process.env.PORT || 4000
