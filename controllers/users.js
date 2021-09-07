@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
+const session = require('express-session')
 
 const User = require('../models/User')
 
@@ -24,14 +25,20 @@ router.post('/login', (req, res, next) => {
         .then(user => {
             bcrypt.compare(req.body.password, user[0].password, (err, isMatch) => {
                 if (err) return console.log(err)
-                isMatch
-                ? res.send(true)
-                : res.send(false)
+                
+                if (isMatch) {
+                    req.session.cookie.exprires = 1000 * 60 * 60 * 24
+                    req.session.user = user[0]
+                    res.send(req.sessionID)
+                } else {
+                    res.send(false)
+                }
             })
         })
     })
     .catch(console.error)
 })
+
 
 router.get('/:id', (req, res, next) => {
     User.findById(req.params.id)

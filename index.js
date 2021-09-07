@@ -27,26 +27,26 @@ const usersController = require('./controllers/users.js')
 const notesController = require('./controllers/notes.js')
 const todosController = require('./controllers/todos.js')
 
+app.get('/api/users/session/:id', (req, res, next) => {
+  sessionStore.get(req.params.id, (err, session) => {
+      session
+      ? res.send(session)
+      : res.send("No session")
+  })
+})
+
+app.delete('/api/users/session/:id', (req, res, next) => {
+  sessionStore.destroy(req.params.id, (err, session) => {
+    err
+    ? res.send(false)
+    : res.send(true)
+  })
+})
+
 app.use('/api/users', usersController)
 app.use('/api/notes', notesController)
 app.use('/api/todos', todosController)
 
-app.get('/', function(req, res, next) {
-  // if logged in run session,
-req.session.cookie.maxAge = 1000 * 5
-    if (req.session.views) {
-      req.session.views++
-      res.setHeader('Content-Type', 'text/html')
-      res.write('<p>views: ' + req.session.views + '</p>')
-      res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-      res.end()
-    } else if(req.session.views === 10) {
-      req.session.destroy()
-    } else {
-      req.session.views = 1
-      res.end('welcome to the session demo. refresh!')
-    }
-  })
 
 const port = 4000
 app.listen(port, () => {
