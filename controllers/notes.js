@@ -32,14 +32,12 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/note/:id', (req, res, next) => {
     Note.findById(req.params.id)
-    .populate('author')
     .then((note) => res.json(note))
     .catch(next)
 })
 
 router.get('/author/:id', (req, res, next) => {
     Note.find({author: req.params.id})
-    .populate('author')
     .then((note) => res.json(note))
     .catch(next)
 })

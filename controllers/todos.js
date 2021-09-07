@@ -29,14 +29,12 @@ router.delete('/:id', (req, res, next) => {
 
 router.get('/todo/:id', (req, res, next) => {
     Todo.findById(req.params.id)
-    .populate('author')
     .then((todo) => res.json(todo))
     .catch(next)
 })
 
 router.get('/author/:id', (req, res, next) => {
     Todo.find({author: req.params.id})
-    .populate('author')
     .then((todo) => res.json(todo))
     .catch(next)
 })
