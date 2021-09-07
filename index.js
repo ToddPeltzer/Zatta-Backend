@@ -12,18 +12,17 @@ app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}))
 
 const sessionStore = MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/sessions',
+    mongoUrl: process.env.DB_URL,
     collectionName: 'sessions'
 })
 
-// session 
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    store: sessionStore,
-    maxAge: 24 * 60 * 60 * 1000  //  24 hours
+    store: sessionStore
 }))
+
 
 
 
@@ -36,23 +35,21 @@ app.use('/api/notes', notesController)
 app.use('/api/todos', todosController)
 
 // session ---------
-app.get('/', function(req, res, next) {
-    // if logged in run session,
-  req.session.cookie.maxAge = 1000 * 5
-      if (req.session.views) {
-        req.session.views++
-        res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + req.session.views + '</p>')
-        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-        res.end()
-      } else if(req.session.views === 10) {
-        req.session.destroy()
-      } else {
-        req.session.views = 1
-        res.end('welcome to the session demo. refresh!')
-      }
+app.get('/api/users/session/:id', (req, res, next) => {
+    sessionStore.get(req.params.id, (err, session) => {
+        session
+        ? res.send(session)
+        : res.send("No session")
     })
-
+  })
+  
+  app.delete('/api/users/session/:id', (req, res, next) => {
+    sessionStore.destroy(req.params.id, (err, session) => {
+      err
+      ? res.send(false)
+      : res.send(true)
+    })
+  })
 // session end ---------
 
 
