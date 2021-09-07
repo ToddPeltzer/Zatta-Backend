@@ -39,9 +39,8 @@ router.post('/login', (req, res, next) => {
     .catch(console.error)
 })
 
-
-router.get('/:id', (req, res, next) => {
-    User.findById(req.params.id)
+router.post('/username', (req, res, next) => {
+    User.find({ username: req.body.username })
     .then((user) => res.json(user))
     .catch(next)
 })
