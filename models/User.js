@@ -19,9 +19,15 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true,
     },
-    isLoggedIn: {
-        type: Boolean,
-        default: false
+    userAuth: {
+        isLoggedin: {
+            type: Boolean,
+            default: false
+        },
+        SessionID: {
+            type: String,
+            default: ''
+        }
     }
 })
 
