@@ -29,10 +29,14 @@ app.use(session({
 const usersController = require('./controllers/users.js')
 const notesController = require('./controllers/notes.js')
 const todosController = require('./controllers/todos.js')
+const postsController = require('./controllers/posts.js')
+const commentsController = require('./controllers/comments.js')
 
 app.use('/api/users', usersController)
 app.use('/api/notes', notesController)
 app.use('/api/todos', todosController)
+app.use('/api/posts', postsController)
+app.use('/api/comments', commentsController)
 
 // session ---------
 app.get('/api/users/session/:id', (req, res, next) => {
@@ -43,13 +47,13 @@ app.get('/api/users/session/:id', (req, res, next) => {
     })
   })
   
-  app.delete('/api/users/session/:id', (req, res, next) => {
-    sessionStore.destroy(req.params.id, (err, session) => {
-      err
-      ? res.send(false)
-      : res.send(true)
-    })
+app.delete('/api/users/session/:id', (req, res, next) => {
+  sessionStore.destroy(req.params.id, (err, session) => {
+    err
+    ? res.send(false)
+    : res.send(true)
   })
+})
 // session end ---------
 
 
