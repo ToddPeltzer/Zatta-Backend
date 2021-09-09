@@ -1,6 +1,10 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const connection = require('./db/connection.js')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
+const io = require('socket.io');
 
 const app = express()
 

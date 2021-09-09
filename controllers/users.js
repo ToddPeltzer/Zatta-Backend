@@ -23,6 +23,7 @@ router.post('/login', (req, res, next) => {
     .then(users => {
         User.find({username: req.body.username})
         .then(user => {
+            
             bcrypt.compare(req.body.password, user[0].password, (err, isMatch) => {
                 if (err) return console.log(err)
                 
