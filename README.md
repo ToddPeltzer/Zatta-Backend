@@ -21,11 +21,12 @@ Zatta aims to help you organize notes that you will be taking and will help with
 5. Open `http://localhost:3000/` to see running application.
 
 ### Contributors
-- Ahzam | [Github](https://github.com/AhzamBardai) | [LinkedIn](https://www.linkedin.com/in/ahzam-bardai/)
-- Alec | [Github](https://github.com/wenjase) | [LinkedIn](https://www.linkedin.com/in/alec-johnson-252a09212/)
-- Todd | [Github](https://github.com/toddpeltzer) | [LinkedIn](https://www.linkedin.com/in/todd-peltzer/)
-- Troi | [Github](https://github.com/tverg419) | [LinkedIn](https://www.linkedin.com/in/troi-vergara/)
-- Zavier | [Github](https://github.com/ZavierLowe) | [LinkedIn](https://www.linkedin.com/in/zavierlowe/)
+- Ahzam | [Github](https://github.com/AhzamBardai) | [LinkedIn](https://www.linkedin.com/in/ahzam-bardai/) | Team Lead
+- Alec | [Github](https://github.com/wenjase) | [LinkedIn](https://www.linkedin.com/in/alec-johnson-252a09212/) | Backend Admin
+- Todd | [Github](https://github.com/toddpeltzer) | [LinkedIn](https://www.linkedin.com/in/todd-peltzer/) | Frontend - Functionality
+- Troi | [Github](https://github.com/tverg419) | [LinkedIn](https://www.linkedin.com/in/troi-vergara/)  | Database Admin
+- Zavier | [Github](https://github.com/ZavierLowe) | [LinkedIn](https://www.linkedin.com/in/zavierlowe/) | Frontend - Styling
+
 
 ## Contribution Guidelines
 - Please submit any bugs that are found in the Issues. 
